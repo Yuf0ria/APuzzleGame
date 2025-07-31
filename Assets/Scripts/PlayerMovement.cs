@@ -1,25 +1,54 @@
 using UnityEngine;
-
+using UnityEngine.VFX;
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed = 5.0f;
-    private Rigidbody2D rb;
+    private float horizontal;
+    [SerializeField] private float speed = 8f;
+    [SerializeField] private float jumpingPower = 16f;
+    [SerializeField] private VisualEffect vfxRenderer;
+    private bool isFacingRight = true;
 
-    private void Start()
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+
+    void Update()
     {
-        rb = GetComponent<Rigidbody2D>();
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && rb.linearVelocity.y > 0f)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+        }
+
+        vfxRenderer.SetVector3("CollidePos", transform.position);
+
+        Flip();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+    }
 
-        Vector2 move = new Vector2(moveHorizontal, moveVertical);
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
 
-        if (move.magnitude > 1f)
-            move = move.normalized;
-
-        rb.linearVelocity = move * speed;
+    private void Flip()
+    {
+        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
     }
 }
