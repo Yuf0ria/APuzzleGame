@@ -3,8 +3,9 @@ using static UnityEngine.ParticleSystem;
 
 public class PlayerControls : MonoBehaviour
 {
-    private ParticleSystem[] callParticleSystem;
+    [SerializeField] private GameObject constellationBook;
 
+    private ParticleSystem[] callParticleSystem;
     void Start()
     {
         GameObject[] starObjects = GameObject.FindGameObjectsWithTag("star");
@@ -33,6 +34,12 @@ public class PlayerControls : MonoBehaviour
                     ps.Play();
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (constellationBook != null)
+                constellationBook.SetActive(!constellationBook.activeSelf);
         }
     }
 }

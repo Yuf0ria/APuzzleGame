@@ -6,6 +6,7 @@ TagManager:
   tags:
   - star
   - Ground
+  - Cloud
   layers:
   - Default
   - TransparentFX

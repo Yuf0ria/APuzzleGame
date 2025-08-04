@@ -12,6 +12,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
+
+    [SerializeField] private KeyCode grappleKey = KeyCode.Q;
+    [SerializeField] private float normalGravity = 2.0f;
+    [SerializeField] private float ascendGravity = 1f;
+    [SerializeField] private float descendGravity = 4f;
+
+    [SerializeField] private float trampolinePower = 24f;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = normalGravity;
+    }
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -23,9 +36,24 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && rb.linearVelocity.y > 0f)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+            if (rb.linearVelocity.y > 0f)
+                rb.gravityScale = ascendGravity;
+            else
+                rb.gravityScale = descendGravity;
         }
 
+        /*if (!IsGrounded())
+        {
+            if (rb.linearVelocity.y > 0f)
+                rb.gravityScale = ascendGravity;  
+            else
+                rb.gravityScale = descendGravity;  
+        }
+        else
+        {
+            rb.gravityScale = normalGravity;
+        }
+*/
         vfxRenderer.SetVector3("CollidePos", transform.position);
 
         Flip();
@@ -35,7 +63,13 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
     }
-
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Cloud"))
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, trampolinePower);
+        }
+    }
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
