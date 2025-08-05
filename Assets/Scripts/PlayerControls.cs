@@ -1,45 +1,54 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class PlayerControls : MonoBehaviour
 {
+    [Header("Assign star particle systems in order")]
+    [SerializeField] private ParticleSystem[] starParticles;
+
+    [Header("Assign matching Star scripts (same order)")]
+    [SerializeField] private ActivateStar[] activateStar;
+
     [SerializeField] private GameObject constellationBook;
 
-    private ParticleSystem[] callParticleSystem;
-    void Start()
-    {
-        GameObject[] starObjects = GameObject.FindGameObjectsWithTag("star");
-
-        callParticleSystem = new ParticleSystem[starObjects.Length];
-
-        for (int i = 0; i < starObjects.Length; i++)
-        {
-            callParticleSystem[i] = starObjects[i].GetComponent<ParticleSystem>();
-
-            if (callParticleSystem[i] == null)
-            {
-                Debug.LogWarning($"{starObjects[i].name} does not have a ParticleSystem component!");
-            }
-        }
-    }
+    private int currentStarIndex = 0;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            foreach (ParticleSystem ps in callParticleSystem)
-            {
-                if (ps != null)
-                {
-                    ps.Play();
-                }
-            }
+            TryRippleCurrentStar();
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (constellationBook != null)
                 constellationBook.SetActive(!constellationBook.activeSelf);
+        }
+    }
+
+    void TryRippleCurrentStar()
+    {
+        if (currentStarIndex >= starParticles.Length || currentStarIndex >= activateStar.Length)
+        {
+            Debug.Log("All stars processed.");
+            return;
+        }
+
+        ActivateStar currentStar = activateStar[currentStarIndex];
+
+        if (!currentStar.isActivated)
+        {
+            if (starParticles[currentStarIndex] != null)
+            {
+                starParticles[currentStarIndex].Play();
+                Debug.Log($"Ripple shown on {currentStar.name}, waiting for activation.");
+            }
+        }
+        else
+        {
+            currentStarIndex++;
+            Debug.Log($"Moving to next star. Index: {currentStarIndex}");
         }
     }
 }
