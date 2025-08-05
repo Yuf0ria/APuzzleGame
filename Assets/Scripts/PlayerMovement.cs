@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+
         horizontal = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
@@ -59,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
         Flip();
     }
 
+
+
     private void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
@@ -72,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
     }
 
     private void Flip()
