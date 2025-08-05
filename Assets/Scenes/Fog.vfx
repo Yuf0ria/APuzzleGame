@@ -3758,7 +3758,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.OrientedBox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":4.104804992675781,"y":1.5858488082885743,"z":0.0},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":48.22602844238281,"y":38.79986572265625,"z":1.0}}'
+      m_SerializableObject: '{"center":{"x":0.23000000417232514,"y":2.009999990463257,"z":0.0},"angles":{"x":0.0,"y":0.0,"z":0.0},"size":{"x":28.399999618530275,"y":20.0,"z":1.0}}'
     m_Space: 0
   m_Property:
     name: Box
