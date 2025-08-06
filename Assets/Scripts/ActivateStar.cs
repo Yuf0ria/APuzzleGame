@@ -4,8 +4,9 @@ public class ActivateStar : MonoBehaviour
 {
     public bool isActivated = false;
     private bool playerNearby = false;
+    public static bool activatedAllStars = false;
+    public static int activatedStarCount = 0;
 
-    [Header("Optional: Assign the glowing child manually")]
     [SerializeField] private Renderer glowRenderer; // assign if known
 
     private Material glowMaterialInstance;
@@ -31,9 +32,10 @@ public class ActivateStar : MonoBehaviour
 
     void Update()
     {
-        if (playerNearby && Input.GetKeyDown(KeyCode.R))
+        if (playerNearby && Input.GetKeyDown(KeyCode.R) && !isActivated)
         {
             isActivated = true;
+            activatedStarCount++;
             Debug.Log($"{gameObject.name} activated!");
 
             if (glowMaterialInstance != null)
@@ -42,6 +44,12 @@ public class ActivateStar : MonoBehaviour
                 // Change the color intensity (e.g., increase brightness)
                 Color glowColor = new Color(1f, 1f, 1f, 1f) * 10f; // white HDR with intensity 10
                 glowMaterialInstance.SetColor("_GlowColor", glowColor);
+            }
+
+            if (activatedStarCount == 4)
+            {
+                activatedAllStars = true;
+                Debug.Log("All 4 stars are activated!");
             }
         }
     }

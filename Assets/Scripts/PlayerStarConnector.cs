@@ -10,7 +10,7 @@ public class PlayerStarConnector : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && starInRange != null)
+        if (Input.GetKeyDown(KeyCode.Q) && starInRange != null && ActivateStar.activatedAllStars)
         {
             StarPair currentStar = starInRange.GetComponent<StarPair>();
 
