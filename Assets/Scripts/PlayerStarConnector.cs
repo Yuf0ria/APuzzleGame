@@ -11,12 +11,13 @@ public class PlayerStarConnector : MonoBehaviour
     private Transform starInRange;
     private StarPair selectedStar = null;
     private GameObject tempLineObj;
+    public static bool levelIsComplete = false;
 
     private HashSet<string> connectedPairs = new HashSet<string>();
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && starInRange != null && ActivateStar.activatedAllStars)
+        if (Input.GetKeyDown(KeyCode.Q) && starInRange != null && ActivateStar.activatedAllStars == true)
         {
             StarPair currentStar = starInRange.GetComponent<StarPair>();
 
@@ -46,7 +47,16 @@ public class PlayerStarConnector : MonoBehaviour
                         
                         if (connectedPairs.Count >= requiredConnections && levelComplete != null)
                         {
-                            levelComplete.SetActive(true);
+
+                            GameObject cutsceneObj = GameObject.FindWithTag("FinalCutsceneCam");
+                            cutsceneObj.GetComponent<FinalCutscene>().TriggerFinalCutscene();
+
+                            levelIsComplete = true;
+
+                            if (FinalCutscene.doneFadeOut == true)
+                            {
+                                levelComplete.SetActive(true);
+                            }
                             Debug.Log(" All star pairs connected! Level Complete");
                         }
                     }

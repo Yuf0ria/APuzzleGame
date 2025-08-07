@@ -6,12 +6,20 @@ public class MoveCamera : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        virtualCam.SetActive(true);
+        if (other.CompareTag("Player"))
+        {
+            virtualCam.SetActive(true);
+
+            // Register this as the current cam
+            ZoomOutCutscene.currentCam = virtualCam;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        virtualCam.SetActive(false);
+        if (other.CompareTag("Player"))
+        {
+            virtualCam.SetActive(false);
+        }
     }
-
 }
