@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
 
-    [SerializeField] private KeyCode grappleKey = KeyCode.Q;
     [SerializeField] private float normalGravity = 2.0f;
     [SerializeField] private float ascendGravity = 1f;
     [SerializeField] private float descendGravity = 4f;

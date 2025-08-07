@@ -20,7 +20,7 @@ public class PlayerControls : MonoBehaviour
             TryRippleCurrentStar();
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (constellationBook != null)
                 constellationBook.SetActive(!constellationBook.activeSelf);

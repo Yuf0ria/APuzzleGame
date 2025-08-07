@@ -7,19 +7,40 @@ public class ConnectorLine : MonoBehaviour
     private Transform from;
     private Transform to;
 
+    [SerializeField] private float textureRepeatRate = 1.0f;
+
     void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();
+        if (lineRenderer == null)
+            lineRenderer = GetComponent<LineRenderer>();
+
         lineRenderer.positionCount = 2;
         lineRenderer.enabled = false;
+
+        lineRenderer.textureMode = LineTextureMode.Tile;
+
+        if (lineRenderer.material != null && lineRenderer.material.mainTexture != null)
+        {
+            lineRenderer.material.mainTexture.wrapMode = TextureWrapMode.Repeat;
+        }
     }
 
     void Update()
     {
         if (!lineRenderer.enabled || from == null || to == null) return;
 
-        lineRenderer.SetPosition(0, from.position);
-        lineRenderer.SetPosition(1, to.position);
+        Vector3 start = from.position;
+        Vector3 end = to.position;
+
+        lineRenderer.SetPosition(0, start);
+        lineRenderer.SetPosition(1, end);
+
+        float distance = Vector3.Distance(start, end);
+
+        if (lineRenderer.material != null)
+        {
+            lineRenderer.material.mainTextureScale = new Vector2(distance * textureRepeatRate, 1f);
+        }
     }
 
     public void SetPoints(Transform a, Transform b)
