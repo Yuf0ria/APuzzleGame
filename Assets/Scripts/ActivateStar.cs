@@ -15,7 +15,7 @@ public class ActivateStar : MonoBehaviour
 
     void Start()
     {
-
+        activatedStarCount = 0;
         // If not assigned manually, auto-find the Renderer in child
         if (glowRenderer == null)
         {

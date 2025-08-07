@@ -14,12 +14,14 @@ public class FinalCutscene : MonoBehaviour
 
     private void Start()
     {
-        blackFadeImage.enabled = false;
+        doneFadeOut = false;
+        blackFadeImage.color = new Color(blackFadeImage.color.r, blackFadeImage.color.g, blackFadeImage.color.b, 0f);
     }
 
     public void TriggerFinalCutscene()
     {
         blackFadeImage.enabled = true;
+
         StartCoroutine(CameraRoutine());
     }
 

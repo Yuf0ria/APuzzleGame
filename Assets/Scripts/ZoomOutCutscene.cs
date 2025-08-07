@@ -14,12 +14,13 @@ public class ZoomOutCutscene : MonoBehaviour
 
     private void Start()
     {
-        blackFadeImage.enabled = false;
+        blackFadeImage.color = new Color(blackFadeImage.color.r, blackFadeImage.color.g, blackFadeImage.color.b, 0f);
     }
-
     public void TriggerZoomOut()
     {
         blackFadeImage.enabled = true;
+        blackFadeImage.color = new Color(blackFadeImage.color.r, blackFadeImage.color.g, blackFadeImage.color.b, 0f);
+
         StartCoroutine(ZoomOutRoutine());
     }
 
