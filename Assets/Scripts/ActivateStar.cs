@@ -7,7 +7,7 @@ public class ActivateStar : MonoBehaviour
     private bool playerNearby = false;
     public static bool activatedAllStars = false;
     public static int activatedStarCount = 0;
-    public static bool enemyCanSpawn = false;
+    public static bool enemyCanSpawn = true;
 
     [SerializeField] private Renderer glowRenderer; // assign if known
 
