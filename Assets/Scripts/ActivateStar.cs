@@ -7,7 +7,7 @@ public class ActivateStar : MonoBehaviour
     private bool playerNearby = false;
     public static bool activatedAllStars = false;
     public static int activatedStarCount = 0;
-    public static bool enemyCanSpawn = true;
+    public static bool enemyCanSpawn = false;
 
     [SerializeField] private Renderer glowRenderer; // assign if known
 
@@ -15,7 +15,7 @@ public class ActivateStar : MonoBehaviour
 
     void Start()
     {
-
+        activatedStarCount = 0;
         // If not assigned manually, auto-find the Renderer in child
         if (glowRenderer == null)
         {
@@ -51,6 +51,9 @@ public class ActivateStar : MonoBehaviour
 
             if (activatedStarCount == 4)
             {
+                GameObject cutsceneObj = GameObject.FindWithTag("CutsceneCam");
+                cutsceneObj.GetComponent<ZoomOutCutscene>().TriggerZoomOut();
+
                 activatedAllStars = true;
                 Debug.Log("All 4 stars are activated!");
             }
