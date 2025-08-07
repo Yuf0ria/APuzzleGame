@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && gameOverUI != null)
+        if (other.CompareTag("Player") && gameOverUI != null && PlayerControls.isDetectable == true)
         {
             gameOverUI.SetActive(true);
         }

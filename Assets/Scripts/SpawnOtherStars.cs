@@ -27,7 +27,6 @@ public class SpawnOtherStars : MonoBehaviour
             starE.SetActive(true);
             starF.SetActive(true);
             starG.SetActive(true);
-            Debug.Log("All 4 stars are activated!");
         }
     }
 }

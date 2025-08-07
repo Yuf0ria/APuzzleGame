@@ -34,10 +34,8 @@ public class PlayerStarConnector : MonoBehaviour
             {
                 if (selectedStar.validPairIDs.Contains(currentStar.starID))
                 {
-                    // Sort and store connection key
                     string pairKey = GetSortedPairKey(selectedStar.starID, currentStar.starID);
 
-                    // Only connect if not already connected
                     if (connectedPairs.Add(pairKey))
                     {
                         Debug.Log($"Connected pair: {pairKey} ({connectedPairs.Count}/{requiredConnections})");
@@ -45,12 +43,11 @@ public class PlayerStarConnector : MonoBehaviour
                         GameObject finalLine = Instantiate(connectorPrefab);
                         ConnectorLine line = finalLine.GetComponent<ConnectorLine>();
                         line.SetPoints(selectedStar.transform, currentStar.transform);
-
-                        // Unlock object if enough unique pairs are made
+                        
                         if (connectedPairs.Count >= requiredConnections && levelComplete != null)
                         {
                             levelComplete.SetActive(true);
-                            Debug.Log(" All star pairs connected! Unlocking object.");
+                            Debug.Log(" All star pairs connected! Level Complete");
                         }
                     }
                     else

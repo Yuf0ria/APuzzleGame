@@ -1,5 +1,7 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class PlayerControls : MonoBehaviour
 {
@@ -11,6 +13,13 @@ public class PlayerControls : MonoBehaviour
 
     [SerializeField] private GameObject constellationBook;
 
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private float hideDuration = 3f;
+
+    public static bool isDetectable = true;
+
+    private Coroutine hideCoroutine;
+
     private int currentStarIndex = 0;
 
     void Update()
@@ -20,10 +29,24 @@ public class PlayerControls : MonoBehaviour
             TryRippleCurrentStar();
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (hideCoroutine == null)
+            {
+                hideCoroutine = StartCoroutine(HideFromEnemies());
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (constellationBook != null)
-                constellationBook.SetActive(!constellationBook.activeSelf);
+            {
+                bool isNowOpen = !constellationBook.activeSelf;
+                constellationBook.SetActive(isNowOpen);
+
+                Time.timeScale = isNowOpen ? 0f : 1f;
+            }
+
         }
     }
 
@@ -42,7 +65,6 @@ public class PlayerControls : MonoBehaviour
             if (starParticles[currentStarIndex] != null)
             {
                 starParticles[currentStarIndex].Play();
-                Debug.Log($"Ripple shown on {currentStar.name}, waiting for activation.");
             }
         }
         else
@@ -50,5 +72,24 @@ public class PlayerControls : MonoBehaviour
             currentStarIndex++;
             Debug.Log($"Moving to next star. Index: {currentStarIndex}");
         }
+    }
+
+    IEnumerator HideFromEnemies()
+    {
+        // Step 1: Make player semi-transparent and undetectable
+        isDetectable = false;
+
+        Color originalColor = spriteRenderer.color;
+        Color hiddenColor = originalColor;
+        hiddenColor.a = 0.1f;
+        spriteRenderer.color = hiddenColor;
+
+        // Step 2: Wait for 3 seconds
+        yield return new WaitForSeconds(hideDuration);
+
+        // Step 3: Restore visibility and detectability
+        spriteRenderer.color = originalColor;
+        isDetectable = true;
+        hideCoroutine = null;
     }
 }
