@@ -76,7 +76,6 @@ public class PlayerControls : MonoBehaviour
 
     IEnumerator HideFromEnemies()
     {
-        // Step 1: Make player semi-transparent and undetectable
         isDetectable = false;
 
         Color originalColor = spriteRenderer.color;
@@ -84,10 +83,8 @@ public class PlayerControls : MonoBehaviour
         hiddenColor.a = 0.1f;
         spriteRenderer.color = hiddenColor;
 
-        // Step 2: Wait for 3 seconds
         yield return new WaitForSeconds(hideDuration);
 
-        // Step 3: Restore visibility and detectability
         spriteRenderer.color = originalColor;
         isDetectable = true;
         hideCoroutine = null;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -29,7 +30,22 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player") && gameOverUI != null && PlayerControls.isDetectable == true)
         {
-            gameOverUI.SetActive(true);
+            Animator playerAnimator = other.GetComponent<Animator>();
+
+            StartCoroutine(StunPlayer(playerAnimator));
+
+            //gameOverUI.SetActive(true);
         }
+    }
+
+    IEnumerator StunPlayer(Animator animator)
+    {
+        PlayerMovement.isStunned = true;
+        animator.SetBool("isHit", true);
+
+        yield return new WaitForSeconds(3f);
+
+        animator.SetBool("isHit", false);
+        PlayerMovement.isStunned = false;
     }
 }

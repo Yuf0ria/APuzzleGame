@@ -19,23 +19,36 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float trampolinePower = 24f;
 
+    [SerializeField] Animator animator;
+
+    public static bool isStunned = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = normalGravity;
+
+        animator = GetComponent<Animator>();
     }
     void Update()
     {
+        if (isStunned) return;
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+            animator.SetBool("isJumping", true);
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && rb.linearVelocity.y > 0f)
         {
+            animator.SetBool("isJumping", true);
             if (rb.linearVelocity.y > 0f)
                 rb.gravityScale = ascendGravity;
             else
@@ -54,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = normalGravity;
         }
 */
+        animator.SetBool("isRunning", Mathf.Abs(horizontal) > 0.1f && IsGrounded());
+
         vfxRenderer.SetVector3("CollidePos", transform.position);
 
         Flip();
@@ -63,6 +78,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isStunned) return;
+
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -74,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
     }
     private bool IsGrounded()
     {
+        animator.SetBool("isJumping", false);
+        //animator.SetBool("isHit", false);
         return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
     }
 
