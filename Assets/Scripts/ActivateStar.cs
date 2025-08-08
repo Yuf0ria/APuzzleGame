@@ -6,7 +6,7 @@ public class ActivateStar : MonoBehaviour
     public bool isActivated = false;
     private bool playerNearby = false;
     public static bool activatedAllStars = false;
-    public static int activatedStarCount = 0;
+    public static int activatedStarCount = 3;
     public static bool enemyCanSpawn = false;
 
     [SerializeField] private Renderer glowRenderer; // assign if known
@@ -16,7 +16,7 @@ public class ActivateStar : MonoBehaviour
     void Start()
     {
         isActivated = false;
-        activatedStarCount = 0;
+        activatedStarCount = 3;
         activatedAllStars = false;
         enemyCanSpawn = false;
         // If not assigned manually, auto-find the Renderer in child
@@ -52,7 +52,7 @@ public class ActivateStar : MonoBehaviour
                 glowMaterialInstance.SetColor("_GlowColor", glowColor);
             }
 
-            if (activatedStarCount == 4)
+            if (activatedStarCount > 3)
             {
                 GameObject cutsceneObj = GameObject.FindWithTag("CutsceneCam");
                 cutsceneObj.GetComponent<ZoomOutCutscene>().TriggerZoomOut();
@@ -61,7 +61,7 @@ public class ActivateStar : MonoBehaviour
                 Debug.Log("All 4 stars are activated!");
             }
 
-            if (activatedStarCount == 2)
+            if (activatedStarCount > 1)
             {
                 enemyCanSpawn = true;
                 Debug.Log("EnemySpawned!");

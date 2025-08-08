@@ -38,9 +38,10 @@ public class FinalCutscene : MonoBehaviour
 
         yield return new WaitForSeconds(cutsceneDuration);
 
+        doneFadeOut = true;
         yield return StartCoroutine(FadeIn());
 
-        doneFadeOut = true;
+
     }
 
     IEnumerator FadeIn()
