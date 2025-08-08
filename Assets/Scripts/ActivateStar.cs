@@ -6,7 +6,7 @@ public class ActivateStar : MonoBehaviour
     public bool isActivated = false;
     private bool playerNearby = false;
     public static bool activatedAllStars = false;
-    public static int activatedStarCount = 3;
+    public static int activatedStarCount = 0;
     public static bool enemyCanSpawn = false;
 
     [SerializeField] private Renderer glowRenderer; // assign if known
@@ -16,8 +16,8 @@ public class ActivateStar : MonoBehaviour
     void Start()
     {
         isActivated = false;
-        activatedStarCount = 3;
-        activatedAllStars = false;
+        activatedStarCount = 0;
+        //activatedAllStars = false;
         enemyCanSpawn = false;
         // If not assigned manually, auto-find the Renderer in child
         if (glowRenderer == null)
