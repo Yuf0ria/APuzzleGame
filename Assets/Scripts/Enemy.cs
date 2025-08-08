@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     private bool isHidden = false;
     private Collider2D col;
     public AudioManager audioManager;
-    public AudioClip clip,clip2;
+    public AudioClip clip;
 
 
     private void Awake()
@@ -27,12 +27,7 @@ public class Enemy : MonoBehaviour
         if (gameOverUI != null)
             gameOverUI.SetActive(false);
     }
-
-    private void Start()
-    {
-
-    }
-
+        
     void Update()
     {
         float rawT = Mathf.PingPong(Time.time * speed, 1f);
@@ -53,7 +48,6 @@ public class Enemy : MonoBehaviour
     {
         isHidden = false;
         col.enabled = true;
-        audioManager.soundEffectsAudio[1].PlayOneShot(clip);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -62,7 +56,7 @@ public class Enemy : MonoBehaviour
         {
             Animator playerAnimator = other.GetComponent<Animator>();
             StartCoroutine(StunPlayer(playerAnimator));
-            audioManager.soundEffectsAudio[2].PlayOneShot(clip2);
+            audioManager.soundEffectsAudio[2].PlayOneShot(clip);
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class EnemyCloseOpen : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class EnemyCloseOpen : MonoBehaviour
     private Collider2D col;
 
     public AudioManager audioManager;
-    public AudioClip clip,clip2;
+    public AudioClip clip;
 
     private void Awake()
     {
@@ -45,7 +46,6 @@ public class EnemyCloseOpen : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, visibleZ);
         col.enabled = true;
-        audioManager.soundEffectsAudio[1].PlayOneShot(clip);
         //StartScaling();
     }
 
@@ -55,7 +55,7 @@ public class EnemyCloseOpen : MonoBehaviour
         {
             Animator playerAnimator = other.GetComponent<Animator>();
             StartCoroutine(StunPlayer(playerAnimator));
-            audioManager.soundEffectsAudio[5].PlayOneShot(clip2);
+            audioManager.soundEffectsAudio[5].PlayOneShot(clip);
         }
     }
 
