@@ -7,7 +7,7 @@ public class ButtonManager : MonoBehaviour
     public GameObject settingsMenu, mainMenuScreen;
     public void PlayGame()
     {
-        SceneManager.LoadScene("Main Scene");
+        SceneManager.LoadScene("02");
         Time.timeScale = 1;
         string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
     }
