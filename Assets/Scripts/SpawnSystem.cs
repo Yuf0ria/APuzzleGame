@@ -43,15 +43,5 @@ public class SpawnSystem : MonoBehaviour
             foreach (var e in enemy1List)
                 if (e != null) e.ShowEnemy();
         }
-        else
-        {
-            enemies.SetActive(false);
-
-            foreach (var e in enemy2List)
-                if (e != null) e.HideEnemy();
-
-            foreach (var e in enemy1List)
-                if (e != null) e.HideEnemy();
-        }
     }
 }
