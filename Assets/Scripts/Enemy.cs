@@ -25,6 +25,11 @@ public class Enemy : MonoBehaviour
             gameOverUI.SetActive(false);
     }
 
+    private void Start()
+    {
+
+    }
+
     void Update()
     {
         float rawT = Mathf.PingPong(Time.time * speed, 1f);
@@ -61,6 +66,13 @@ public class Enemy : MonoBehaviour
         PlayerMovement.isStunned = true;
         animator.SetBool("isHit", true);
 
+        // Unhide the first child (or a named child) of THIS enemy
+        Transform child = transform.GetChild(0); // index 0 = first child
+        if (child != null)
+        {
+            child.gameObject.SetActive(true);
+        }
+
         yield return new WaitForSeconds(3f);
 
         animator.SetBool("isHit", false);
@@ -87,6 +99,7 @@ public class Enemy : MonoBehaviour
                 {
                     Vector3 lastStarPos = player.activateStar[lastActivatedIndex].transform.position;
                     playerGameObject.transform.position = lastStarPos;
+                    child.gameObject.SetActive(false);
                 }
                 else
                 {
@@ -95,4 +108,5 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
 }
