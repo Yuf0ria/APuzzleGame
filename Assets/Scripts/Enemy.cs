@@ -12,6 +12,12 @@ public class Enemy : MonoBehaviour
     private float hiddenZ = -11.57f;
     private float visibleZ = 0f;
     private bool isHidden = false;
+    private Collider2D col;
+
+    private void Awake()
+    {
+        col = GetComponent<Collider2D>();
+    }
 
     void OnEnable()
     {
@@ -31,12 +37,14 @@ public class Enemy : MonoBehaviour
 
     public void HideEnemy()
     {
+        col.enabled = false;
         isHidden = true;
     }
 
     public void ShowEnemy()
     {
         isHidden = false;
+        col.enabled = true;
     }
 
     void OnTriggerEnter2D(Collider2D other)
