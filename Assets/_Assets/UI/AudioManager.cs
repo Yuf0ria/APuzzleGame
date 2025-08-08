@@ -30,6 +30,10 @@ public class AudioManager : MonoBehaviour
         if (clip != null && soundEffectsAudio.Length > 0)
         {
             soundEffectsAudio[0].PlayOneShot(clip);
+            soundEffectsAudio[1].PlayOneShot(clip);
+            soundEffectsAudio[2].PlayOneShot(clip);
+            soundEffectsAudio[3].PlayOneShot(clip);
+            soundEffectsAudio[4].PlayOneShot(clip);
         }
     }
 

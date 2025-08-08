@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator animator;
 
     public static bool isStunned = false;
+    public AudioManager audioManager;
+    public AudioClip clip;
 
     void Start()
     {
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
             animator.SetBool("isJumping", true);
+            audioManager.soundEffectsAudio[3].PlayOneShot(clip);
         }
         else
         {

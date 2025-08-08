@@ -13,6 +13,9 @@ public class Enemy : MonoBehaviour
     private float visibleZ = 0f;
     private bool isHidden = false;
     private Collider2D col;
+    public AudioManager audioManager;
+    public AudioClip clip,clip2;
+
 
     private void Awake()
     {
@@ -50,6 +53,7 @@ public class Enemy : MonoBehaviour
     {
         isHidden = false;
         col.enabled = true;
+        audioManager.soundEffectsAudio[1].PlayOneShot(clip);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -58,6 +62,7 @@ public class Enemy : MonoBehaviour
         {
             Animator playerAnimator = other.GetComponent<Animator>();
             StartCoroutine(StunPlayer(playerAnimator));
+            audioManager.soundEffectsAudio[2].PlayOneShot(clip2);
         }
     }
 

@@ -13,6 +13,10 @@ public class ActivateStar : MonoBehaviour
 
     private Material glowMaterialInstance;
 
+    //audioMangaer
+    public AudioManager audioManager;
+    public AudioClip clip;
+
     void Start()
     {
         isActivated = false;
@@ -43,6 +47,7 @@ public class ActivateStar : MonoBehaviour
             isActivated = true;
             activatedStarCount++;
             Debug.Log($"{gameObject.name} activated!");
+            audioManager.soundEffectsAudio[4].PlayOneShot(clip);
 
             if (glowMaterialInstance != null)
             {

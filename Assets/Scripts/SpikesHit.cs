@@ -3,6 +3,10 @@ using System.Collections;
 
 public class SpikesHit : MonoBehaviour
 {
+    //audioMangaer
+    public AudioManager audioManager;
+    public AudioClip clip;
+
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("player hit spikes");
@@ -18,6 +22,7 @@ public class SpikesHit : MonoBehaviour
     {
         PlayerMovement.isStunned = true;
         animator.SetBool("isHit", true);
+        audioManager.soundEffectsAudio[2].PlayOneShot(clip);
 
         yield return new WaitForSeconds(3f);
 

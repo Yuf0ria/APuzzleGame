@@ -13,6 +13,9 @@ public class EnemyCloseOpen : MonoBehaviour
     private Coroutine scaleCoroutine;
     private Collider2D col;
 
+    public AudioManager audioManager;
+    public AudioClip clip,clip2;
+
     private void Awake()
     {
         col = GetComponent<Collider2D>();
@@ -42,6 +45,7 @@ public class EnemyCloseOpen : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, visibleZ);
         col.enabled = true;
+        audioManager.soundEffectsAudio[1].PlayOneShot(clip);
         //StartScaling();
     }
 
@@ -51,6 +55,7 @@ public class EnemyCloseOpen : MonoBehaviour
         {
             Animator playerAnimator = other.GetComponent<Animator>();
             StartCoroutine(StunPlayer(playerAnimator));
+            audioManager.soundEffectsAudio[5].PlayOneShot(clip2);
         }
     }
 
@@ -58,6 +63,7 @@ public class EnemyCloseOpen : MonoBehaviour
     {
         PlayerMovement.isStunned = true;
         animator.SetBool("isHit", true);
+
 
         yield return new WaitForSeconds(3f);
 
