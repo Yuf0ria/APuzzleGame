@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class FinalCutscene : MonoBehaviour
 {
     [SerializeField] private GameObject finalCutsceneCam;
+    [SerializeField] private GameObject finalCutsceneStars;
     [SerializeField] private float cutsceneDuration = 6f;
 
     [SerializeField] private Image blackFadeImage;
@@ -14,8 +15,10 @@ public class FinalCutscene : MonoBehaviour
 
     private void Start()
     {
+        finalCutsceneStars.SetActive(false);
         doneFadeOut = false;
         blackFadeImage.color = new Color(blackFadeImage.color.r, blackFadeImage.color.g, blackFadeImage.color.b, 0f);
+
     }
 
     public void TriggerFinalCutscene()
@@ -33,6 +36,7 @@ public class FinalCutscene : MonoBehaviour
             ZoomOutCutscene.currentCam.SetActive(false);
 
         finalCutsceneCam.SetActive(true);
+        finalCutsceneStars.SetActive(true);
 
         yield return StartCoroutine(FadeOut());
 

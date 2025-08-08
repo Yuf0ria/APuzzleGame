@@ -230,7 +230,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":-9.680000305175782,"y":-0.009999999776482582,"z":0.0}'
+      m_SerializableObject: '{"x":-9.529999732971192,"y":-0.07000000029802323,"z":0.0}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -2645,7 +2645,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0.5
+      m_SerializableObject: 0
     m_Space: -1
   m_Property:
     name: Bounce
@@ -3265,7 +3265,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.TSphere, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"transform":{"position":{"x":0.0,"y":0.0,"z":0.0},"angles":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},"radius":0.057895660400390628}'
+      m_SerializableObject: '{"transform":{"position":{"x":0.0,"y":0.0,"z":0.0},"angles":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":0.46000000834465029,"y":0.3700000047683716,"z":0.10000000149011612}},"radius":0.057895660400390628}'
     m_Space: 0
   m_Property:
     name: sphere
@@ -5038,7 +5038,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":-9.680000305175782,"y":-0.009999999776482582,"z":0.0}'
+      m_SerializableObject: '{"x":-9.529999732971192,"y":-0.07000000029802323,"z":0.0}'
     m_Space: -1
   m_Property:
     name: o
@@ -9205,9 +9205,7 @@ MonoBehaviour:
   m_Tooltip: 
   m_Nodes:
   - m_Id: 0
-    linkedSlots:
-    - outputSlot: {fileID: 8926484042661615401}
-      inputSlot: {fileID: 8926484042661615410}
+    linkedSlots: []
     position: {x: 664, y: 144}
     expandedSlots: []
     expanded: 1
@@ -9387,9 +9385,7 @@ MonoBehaviour:
   m_Tooltip: 
   m_Nodes:
   - m_Id: 0
-    linkedSlots:
-    - outputSlot: {fileID: 8926484042661615406}
-      inputSlot: {fileID: 8926484042661615422}
+    linkedSlots: []
     position: {x: 616, y: 219}
     expandedSlots: []
     expanded: 1

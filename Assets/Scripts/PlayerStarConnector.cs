@@ -18,6 +18,7 @@ public class PlayerStarConnector : MonoBehaviour
     void Update()
     {
         //Debug.Log("Activated all stars: " + ActivateStar.activatedAllStars);
+        //Debug.Log("Activated stars count: " + ActivateStar.activatedStarCount);
         if (Input.GetKeyDown(KeyCode.Q) && starInRange != null && ActivateStar.activatedAllStars == true)
         {
             StarPair currentStar = starInRange.GetComponent<StarPair>();
