@@ -7,7 +7,7 @@ public class ExitInstructions : MonoBehaviour
     void Start()
     {
         instructionUI.SetActive(true);
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
     }
 
     void Update()

@@ -9,7 +9,7 @@ public class PlayerControls : MonoBehaviour
     [SerializeField] private ParticleSystem[] starParticles;
 
     [Header("Assign matching Star scripts (same order)")]
-    [SerializeField] private ActivateStar[] activateStar;
+    public ActivateStar[] activateStar;
 
     [SerializeField] private GameObject constellationBook;
 

@@ -15,7 +15,10 @@ public class ActivateStar : MonoBehaviour
 
     void Start()
     {
+        isActivated = false;
         activatedStarCount = 0;
+        activatedAllStars = false;
+        enemyCanSpawn = false;
         // If not assigned manually, auto-find the Renderer in child
         if (glowRenderer == null)
         {
