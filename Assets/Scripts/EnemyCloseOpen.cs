@@ -7,11 +7,42 @@ public class EnemyCloseOpen : MonoBehaviour
     [SerializeField] private Vector3 smallerScale = new Vector3(0.5f, 0.5f, 1f);
     [SerializeField] private Vector3 originalScale = new Vector3(1f, 1f, 1f);
     [SerializeField] private float scaleDuration = 3f;
+    [SerializeField] private float hiddenZ = -11.57f;
+    [SerializeField] private float visibleZ = 0f;
 
-    private void Start()
+    private Coroutine scaleCoroutine;
+    private Collider2D col;
+
+    private void Awake()
     {
-        // Start scaling loop
-        StartCoroutine(ScaleLoop());
+        col = GetComponent<Collider2D>();
+    }
+
+    private void OnEnable()
+    {
+        StartScaling();
+    }
+
+    public void StartScaling()
+    {
+        if (scaleCoroutine != null)
+            StopCoroutine(scaleCoroutine);
+
+        transform.localScale = originalScale;
+        scaleCoroutine = StartCoroutine(ScaleLoop());
+    }
+
+    public void HideEnemy()
+    {
+        col.enabled = false;
+        transform.position = new Vector3(transform.position.x, transform.position.y, hiddenZ);
+    }
+
+    public void ShowEnemy()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, visibleZ);
+        col.enabled = true;
+        //StartScaling();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -19,10 +50,7 @@ public class EnemyCloseOpen : MonoBehaviour
         if (other.CompareTag("Player") && gameOverUI != null && PlayerControls.isDetectable == true)
         {
             Animator playerAnimator = other.GetComponent<Animator>();
-
             StartCoroutine(StunPlayer(playerAnimator));
-
-            //gameOverUI.SetActive(true);
         }
     }
 
@@ -35,17 +63,42 @@ public class EnemyCloseOpen : MonoBehaviour
 
         animator.SetBool("isHit", false);
         PlayerMovement.isStunned = false;
+
+        GameObject playerGameObject = GameObject.FindWithTag("Player");
+        if (playerGameObject != null)
+        {
+            PlayerControls player = playerGameObject.GetComponent<PlayerControls>();
+            if (player != null)
+            {
+                int lastActivatedIndex = -1;
+                for (int i = player.activateStar.Length - 1; i >= 0; i--)
+                {
+                    if (player.activateStar[i].isActivated)
+                    {
+                        lastActivatedIndex = i;
+                        break;
+                    }
+                }
+
+                if (lastActivatedIndex != -1)
+                {
+                    Vector3 lastStarPos = player.activateStar[lastActivatedIndex].transform.position;
+                    playerGameObject.transform.position = lastStarPos;
+                }
+                else
+                {
+                    Debug.Log("No activated star found to respawn the player.");
+                }
+            }
+        }
     }
 
     IEnumerator ScaleLoop()
     {
         while (true)
         {
-            // Shrink
-            yield return StartCoroutine(ScaleOverTime(transform.localScale, smallerScale, scaleDuration));
-
-            // Expand
-            yield return StartCoroutine(ScaleOverTime(transform.localScale, originalScale, scaleDuration));
+            yield return StartCoroutine(ScaleOverTime(originalScale, smallerScale, scaleDuration));
+            yield return StartCoroutine(ScaleOverTime(smallerScale, originalScale, scaleDuration));
         }
     }
 
@@ -58,7 +111,6 @@ public class EnemyCloseOpen : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
-        transform.localScale = targetScale; // Ensure exact final value
+        transform.localScale = targetScale;
     }
 }

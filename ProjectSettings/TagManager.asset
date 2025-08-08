@@ -9,6 +9,8 @@ TagManager:
   - Cloud
   - CutsceneCam
   - FinalCutsceneCam
+  - enemy2
+  - enemy1
   layers:
   - Default
   - TransparentFX

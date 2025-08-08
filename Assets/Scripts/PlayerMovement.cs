@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        isStunned = false;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = normalGravity;
 
